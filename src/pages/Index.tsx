@@ -5,6 +5,7 @@ import { JourneyTile } from "@/components/JourneyTile";
 import { NaturalLanguagePrompt } from "@/components/NaturalLanguagePrompt";
 import { Button } from "@/components/ui/button";
 import { FileText, FolderOpen, BarChart3, Users, MessageSquare } from "lucide-react";
+import { useUser } from "@/contexts/UserContext";
 
 const journeys = [
   {
@@ -35,11 +36,17 @@ const journeys = [
 
 const Index = () => {
   const navigate = useNavigate();
+  const { currentUser } = useUser();
   const [isPromptOpen, setIsPromptOpen] = useState(false);
 
   const handleJourneySelect = (journeyId: string) => {
     navigate(`/role/${journeyId}`);
   };
+
+  // Filter journeys based on user roles
+  const availableJourneys = journeys.filter(journey => 
+    currentUser?.roles.includes(journey.id)
+  );
 
   return (
     <>
@@ -47,7 +54,7 @@ const Index = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Welcome!
+              Welcome{currentUser ? `, ${currentUser.name}` : ''}!
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground">
               What would you like to do today?
@@ -55,7 +62,7 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8 max-w-5xl mx-auto">
-            {journeys.map((journey) => (
+            {availableJourneys.map((journey) => (
               <JourneyTile
                 key={journey.id}
                 icon={journey.icon}

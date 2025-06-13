@@ -2,13 +2,15 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Bell, Menu } from 'lucide-react';
+import { Bell, Menu, LogOut } from 'lucide-react';
 import { useNotifications } from '@/contexts/NotificationContext';
+import { useUser } from '@/contexts/UserContext';
 import { NotificationSidebar } from './NotificationSidebar';
 import { MainNavigation } from './MainNavigation';
 
 export const TopBar: React.FC = () => {
   const { notifications } = useNotifications();
+  const { currentUser, logout } = useUser();
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
 
@@ -28,6 +30,9 @@ export const TopBar: React.FC = () => {
           </Button>
 
           <div className="flex items-center gap-2">
+            <span className="text-sm text-muted-foreground mr-2">
+              {currentUser?.name}
+            </span>
             <Button
               variant="ghost"
               size="icon"
@@ -43,6 +48,14 @@ export const TopBar: React.FC = () => {
                   {unreadCount > 9 ? '9+' : unreadCount}
                 </Badge>
               )}
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={logout}
+              className="hover:bg-muted"
+            >
+              <LogOut className="h-5 w-5" />
             </Button>
           </div>
         </div>
