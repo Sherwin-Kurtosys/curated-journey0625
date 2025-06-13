@@ -1,8 +1,7 @@
 
 import React from 'react';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { User, LogIn } from 'lucide-react';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useUser } from '@/contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,46 +27,35 @@ const Login = () => {
     navigate('/');
   };
 
+  const getInitials = (name: string) => {
+    return name.split(' ').map(n => n[0]).join('');
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 flex items-center justify-center p-6">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2">
-            Welcome Back
-          </h1>
-          <p className="text-muted-foreground">
-            Select your user to continue
-          </p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-b from-blue-400 to-blue-600 flex flex-col items-center justify-center p-6">
+      <div className="mb-12">
+        <h1 className="text-4xl font-light text-white mb-2">
+          Welcome back
+        </h1>
+      </div>
 
-        <div className="space-y-4">
-          {users.map((user) => (
-            <Card 
-              key={user.id}
-              className="p-6 cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-border hover:border-primary/50 bg-gradient-to-br from-background to-muted/30"
-              onClick={() => handleUserLogin(user)}
-            >
-              <div className="flex items-center space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <User className="h-6 w-6 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-foreground">{user.name}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {user.roles.length} role{user.roles.length > 1 ? 's' : ''} available
-                  </p>
-                </div>
-                <LogIn className="h-5 w-5 text-muted-foreground" />
-              </div>
-            </Card>
-          ))}
-        </div>
-
-        <div className="text-center mt-8">
-          <p className="text-xs text-muted-foreground">
-            This is a demo login. Select any user to continue.
-          </p>
-        </div>
+      <div className="flex gap-16">
+        {users.map((user) => (
+          <Card 
+            key={user.id}
+            className="p-8 cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-xl bg-white/90 backdrop-blur-sm border-0 rounded-lg"
+            onClick={() => handleUserLogin(user)}
+          >
+            <div className="flex flex-col items-center space-y-4">
+              <Avatar className="h-24 w-24">
+                <AvatarFallback className="text-2xl font-semibold bg-gray-200 text-gray-700">
+                  {getInitials(user.name)}
+                </AvatarFallback>
+              </Avatar>
+              <h3 className="text-xl font-medium text-gray-800">{user.name}</h3>
+            </div>
+          </Card>
+        ))}
       </div>
     </div>
   );
