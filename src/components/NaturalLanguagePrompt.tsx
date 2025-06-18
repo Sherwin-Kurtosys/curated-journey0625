@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { X, Send } from 'lucide-react';
+import { X, Send, MessageSquare } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface NaturalLanguagePromptProps {
@@ -47,21 +47,26 @@ export const NaturalLanguagePrompt: React.FC<NaturalLanguagePromptProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60 backdrop-blur-lg"
         onClick={onClose}
       />
       
       {/* Content */}
-      <div className="relative z-10 w-full max-w-2xl mx-4 p-8 bg-background rounded-lg shadow-xl border">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-semibold text-foreground">
-            What would you like to do?
-          </h2>
+      <div className="relative z-10 w-full max-w-2xl mx-4 p-8 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+              <MessageSquare className="h-6 w-6 text-white" />
+            </div>
+            <h2 className="text-2xl font-light text-gray-800">
+              How can I help you?
+            </h2>
+          </div>
           <Button
             variant="ghost"
             size="icon"
             onClick={onClose}
-            className="hover:bg-muted"
+            className="hover:bg-gray-100 rounded-full"
           >
             <X className="h-5 w-5" />
           </Button>
@@ -72,8 +77,8 @@ export const NaturalLanguagePrompt: React.FC<NaturalLanguagePromptProps> = ({
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="e.g., Update data, Generate report, Check reports, Create template..."
-              className="text-lg h-12"
+              placeholder="Tell me what you'd like to do..."
+              className="text-lg h-14 rounded-2xl border-2 border-gray-200 focus:border-blue-400 px-6"
               autoFocus
             />
           </div>
@@ -83,13 +88,14 @@ export const NaturalLanguagePrompt: React.FC<NaturalLanguagePromptProps> = ({
               type="button"
               variant="outline"
               onClick={onClose}
+              className="rounded-full px-6"
             >
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={!input.trim()}
-              className="gap-2"
+              className="gap-2 rounded-full px-6 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
             >
               <Send className="h-4 w-4" />
               Go
@@ -97,12 +103,12 @@ export const NaturalLanguagePrompt: React.FC<NaturalLanguagePromptProps> = ({
           </div>
         </form>
         
-        <div className="mt-6 pt-6 border-t">
-          <p className="text-sm text-muted-foreground mb-3">Examples:</p>
+        <div className="mt-8 pt-6 border-t border-gray-200">
+          <p className="text-sm text-gray-500 mb-3">Try asking:</p>
           <div className="flex flex-wrap gap-2">
             {[
+              'Generate a monthly report',
               'Update data sources',
-              'Generate monthly report',
               'Check report accuracy',
               'Create new template'
             ].map((example) => (
@@ -111,7 +117,7 @@ export const NaturalLanguagePrompt: React.FC<NaturalLanguagePromptProps> = ({
                 variant="ghost"
                 size="sm"
                 onClick={() => setInput(example)}
-                className="text-xs h-8 hover:bg-muted"
+                className="text-xs h-8 hover:bg-gray-100 rounded-full px-4"
               >
                 {example}
               </Button>
