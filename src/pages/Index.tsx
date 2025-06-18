@@ -85,6 +85,26 @@ const Index = () => {
             </p>
           </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8 max-w-5xl mx-auto mb-8">
+            {availableJourneys.map((journey) => (
+              <div
+                key={journey.id}
+                onClick={() => handleJourneySelect(journey.id)}
+                className="cursor-pointer transition-all duration-200 hover:scale-105 p-8 text-center"
+              >
+                <div className="flex flex-col items-center space-y-4">
+                  <div className="p-4">
+                    <journey.icon size={48} className="text-white" />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-bold text-white">{journey.title}</h3>
+                    <p className="text-sm text-white/70 leading-relaxed">{journey.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
           <div className="max-w-4xl mx-auto mb-8">
             <div className="mb-6 text-center">
               <p className="text-sm text-white/70 mb-3">Try saying:</p>
@@ -122,38 +142,6 @@ const Index = () => {
               </Button>
             </form>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8 max-w-5xl mx-auto mb-8">
-            {availableJourneys.map((journey) => (
-              <div
-                key={journey.id}
-                onClick={() => handleJourneySelect(journey.id)}
-                className="cursor-pointer transition-all duration-200 hover:scale-105 p-8 text-center"
-              >
-                <div className="flex flex-col items-center space-y-4">
-                  <div className="p-4">
-                    <journey.icon size={48} className="text-white" />
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-bold text-white">{journey.title}</h3>
-                    <p className="text-sm text-white/70 leading-relaxed">{journey.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Button
-              onClick={() => setShowPersonas(false)}
-              variant="ghost"
-              size="icon"
-              className="w-12 h-12 rounded-full border-2 border-white/30 hover:bg-white/10 text-white mb-2"
-            >
-              <MessageSquare className="h-5 w-5" />
-            </Button>
-            <p className="text-sm text-white/70">Back to Chat</p>
-          </div>
         </div>
       </div>
     );
@@ -166,16 +154,13 @@ const Index = () => {
           <div className="w-32 h-32 mx-auto mb-8 bg-white/20 rounded-full flex items-center justify-center shadow-2xl">
             <MessageSquare className="h-16 w-16 text-white" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-light text-white mb-4">
-            How can I help you?
-          </h1>
-          <p className="text-xl text-white/80">
-            Tell me what you'd like to do today
+          <p className="text-xl md:text-2xl text-white/80">
+            What would you like to do today?
           </p>
         </div>
 
         <div className="space-y-6">
-          <div className="mt-8">
+          <div className="mb-6 text-center">
             <p className="text-sm text-white/70 mb-3">Try saying:</p>
             <div className="flex flex-wrap gap-2 justify-center">
               {[

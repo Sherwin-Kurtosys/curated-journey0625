@@ -22,7 +22,7 @@ const AppContent = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" style={{ backgroundColor: '#0032b1' }}>
       <TopBar />
       <div className="pt-14">
         <Routes>
