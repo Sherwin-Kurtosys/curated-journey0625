@@ -86,18 +86,7 @@ const Index = () => {
           </div>
 
           <div className="max-w-4xl mx-auto mb-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <Input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="I would like to..."
-                  className="text-lg h-14 rounded-2xl border-2 border-gray-200 focus:border-blue-400 px-6 w-full"
-                />
-              </div>
-            </form>
-            
-            <div className="mt-6">
+            <div className="mb-6">
               <p className="text-sm text-muted-foreground mb-3">Try saying:</p>
               <div className="flex flex-wrap gap-2">
                 {[
@@ -118,6 +107,17 @@ const Index = () => {
                 ))}
               </div>
             </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <Input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="I would like to..."
+                  className="text-lg h-14 rounded-2xl border-2 border-gray-200 focus:border-blue-400 px-6 w-full"
+                />
+              </div>
+            </form>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8 max-w-5xl mx-auto">
@@ -158,15 +158,6 @@ const Index = () => {
         </div>
 
         <div className="space-y-6">
-          <form onSubmit={handleSubmit} className="w-full">
-            <Input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="I would like to..."
-              className="text-lg h-16 rounded-full border-2 border-gray-200 focus:border-blue-400 px-8 w-full shadow-lg"
-            />
-          </form>
-
           <div className="mt-8">
             <p className="text-sm text-gray-500 mb-3">Try saying:</p>
             <div className="flex flex-wrap gap-2 justify-center">
@@ -188,6 +179,15 @@ const Index = () => {
               ))}
             </div>
           </div>
+
+          <form onSubmit={handleSubmit} className="w-full">
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="I would like to..."
+              className="text-lg h-16 rounded-full border-2 border-gray-200 focus:border-blue-400 px-8 w-full shadow-lg"
+            />
+          </form>
 
           <div className="flex flex-col items-center gap-4 mt-12">
             <Button
