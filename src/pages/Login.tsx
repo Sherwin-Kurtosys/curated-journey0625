@@ -15,6 +15,11 @@ const users = [
     id: 'user-b',
     name: 'User B',
     roles: ['report-creator', 'data-manager', 'report-generator', 'report-validator']
+  },
+  {
+    id: 'user-c',
+    name: 'User C',
+    roles: ['report-validator']
   }
 ];
 
