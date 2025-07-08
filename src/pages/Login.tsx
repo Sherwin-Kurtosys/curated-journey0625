@@ -7,18 +7,18 @@ import { User } from 'lucide-react';
 
 const users = [
   {
-    id: 'user-a',
-    name: 'User A',
+    id: 'user-1',
+    name: 'User 1',
+    roles: ['report-generator']
+  },
+  {
+    id: 'user-2', 
+    name: 'User 2',
     roles: ['report-creator']
   },
   {
-    id: 'user-b',
-    name: 'User B',
-    roles: ['report-creator', 'data-manager', 'report-generator', 'report-validator']
-  },
-  {
-    id: 'user-c',
-    name: 'User C',
+    id: 'user-3',
+    name: 'User 3',
     roles: ['report-validator']
   }
 ];
@@ -47,8 +47,8 @@ const Login = () => {
             onClick={() => handleUserLogin(user)}
             className="cursor-pointer transition-all duration-200 hover:scale-105 flex flex-col items-center"
           >
-            <Avatar className="h-24 w-24 mb-4 bg-gray-300">
-              <AvatarFallback className="text-2xl font-semibold bg-gray-300 text-gray-700">
+            <Avatar className="h-24 w-24 mb-4 bg-gray-600">
+              <AvatarFallback className="text-2xl font-semibold bg-gray-600 text-white">
                 <User size={36} />
               </AvatarFallback>
             </Avatar>

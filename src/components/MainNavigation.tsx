@@ -2,15 +2,13 @@
 import React from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { useNavigate } from 'react-router-dom';
 import { 
-  Home, 
-  FileText, 
-  FolderOpen, 
-  BarChart3, 
-  Users, 
-  Settings, 
+  Home,
+  Database,
+  Palette,
+  FileText,
+  Settings,
   User,
   LogOut
 } from 'lucide-react';
@@ -20,12 +18,12 @@ interface MainNavigationProps {
   onClose: () => void;
 }
 
-const navigationItems = [
+const menuItems = [
   { id: 'home', label: 'Home', icon: Home, path: '/' },
-  { id: 'report-creator', label: 'Report Creator', icon: FileText, path: '/role/report-creator' },
-  { id: 'data-manager', label: 'Data Manager', icon: FolderOpen, path: '/role/data-manager' },
-  { id: 'report-generator', label: 'Report Generator', icon: BarChart3, path: '/role/report-generator' },
-  { id: 'report-validator', label: 'Report Validator', icon: Users, path: '/role/report-validator' },
+  { id: 'data', label: 'Data', icon: Database, path: '/data' },
+  { id: 'studio', label: 'Studio', icon: Palette, path: '/studio' },
+  { id: 'documents', label: 'Documents', icon: FileText, path: '/documents' },
+  { id: 'dxm', label: 'DXM', icon: Settings, path: '/dxm' },
 ];
 
 const userMenuItems = [
@@ -66,7 +64,7 @@ export const MainNavigation: React.FC<MainNavigationProps> = ({ isOpen, onClose 
           {/* Main Navigation */}
           <div className="space-y-2">
             <h3 className="text-sm font-medium text-muted-foreground mb-3">Main Areas</h3>
-            {navigationItems.map((item) => (
+            {menuItems.map((item) => (
               <Button
                 key={item.id}
                 variant="ghost"
@@ -79,44 +77,6 @@ export const MainNavigation: React.FC<MainNavigationProps> = ({ isOpen, onClose 
                 </div>
               </Button>
             ))}
-          </div>
-
-          {/* Quick Actions */}
-          <div className="space-y-2">
-            <h3 className="text-sm font-medium text-muted-foreground mb-3">Quick Actions</h3>
-            <Button
-              variant="ghost"
-              className="w-full justify-start h-auto p-3"
-              onClick={() => console.log('Create new report')}
-            >
-              <FileText className="mr-3 h-5 w-5" />
-              <div className="text-left">
-                <div className="font-medium">Create New Report</div>
-                <div className="text-xs text-muted-foreground">Start from template</div>
-              </div>
-            </Button>
-            <Button
-              variant="ghost"
-              className="w-full justify-start h-auto p-3"
-              onClick={() => console.log('View recent reports')}
-            >
-              <BarChart3 className="mr-3 h-5 w-5" />
-              <div className="text-left">
-                <div className="font-medium">Recent Reports</div>
-                <div className="text-xs text-muted-foreground">View latest work</div>
-              </div>
-            </Button>
-            <Button
-              variant="ghost"
-              className="w-full justify-start h-auto p-3"
-              onClick={() => console.log('Manage data sources')}
-            >
-              <FolderOpen className="mr-3 h-5 w-5" />
-              <div className="text-left">
-                <div className="font-medium">Data Sources</div>
-                <div className="text-xs text-muted-foreground">Manage connections</div>
-              </div>
-            </Button>
           </div>
 
           {/* User Menu */}
