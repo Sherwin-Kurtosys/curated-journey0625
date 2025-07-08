@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 interface QuickActionsProps {
   suggestions: string[];
@@ -11,18 +10,8 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
   suggestions,
   onActionClick
 }) => {
-  const navigate = useNavigate();
-
   const handleActionClick = (suggestion: string) => {
-    if (suggestion.toLowerCase().includes('view report status')) {
-      navigate('/report-status');
-    } else if (suggestion.toLowerCase().includes('configure report workflows')) {
-      navigate('/report-workflows');
-    } else if (suggestion.toLowerCase().includes('view report template')) {
-      navigate('/report-templates');
-    } else {
-      onActionClick(suggestion);
-    }
+    onActionClick(suggestion);
   };
 
   return (

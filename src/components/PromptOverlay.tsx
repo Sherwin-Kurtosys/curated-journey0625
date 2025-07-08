@@ -23,7 +23,15 @@ export const PromptOverlay: React.FC<PromptOverlayProps> = ({ onClose }) => {
 
     const lowerInput = input.toLowerCase();
     
-    if (lowerInput.includes('data') || lowerInput.includes('manage')) {
+    if (lowerInput.includes('kick off') || lowerInput.includes('document production center')) {
+      navigate('/document-production-center');
+    } else if (lowerInput.includes('view report status')) {
+      navigate('/report-status');
+    } else if (lowerInput.includes('configure report workflows')) {
+      navigate('/report-workflows');
+    } else if (lowerInput.includes('view report template')) {
+      navigate('/report-templates');
+    } else if (lowerInput.includes('data') || lowerInput.includes('manage')) {
       navigate('/role/data-manager');
     } else if (lowerInput.includes('generate') || lowerInput.includes('create report')) {
       navigate('/role/report-generator');
@@ -39,8 +47,7 @@ export const PromptOverlay: React.FC<PromptOverlayProps> = ({ onClose }) => {
   };
 
   const handleSmartSuggestionClick = () => {
-    console.log('Navigate to Document Product Centre');
-    // In a real app, this would navigate to the Document Product Centre
+    setInput('Based on your recent activity, would you like to kick off the next round of reporting workflows?');
   };
 
   const getPersonaConfig = () => {

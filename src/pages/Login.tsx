@@ -33,9 +33,9 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6" style={{ backgroundColor: '#0032b1' }}>
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-background">
       <div className="mb-12">
-        <h1 className="text-4xl font-light text-white mb-2">
+        <h1 className="text-4xl font-light text-foreground mb-2">
           Welcome back
         </h1>
       </div>
@@ -47,12 +47,12 @@ const Login = () => {
             onClick={() => handleUserLogin(user)}
             className="cursor-pointer transition-all duration-200 hover:scale-105 flex flex-col items-center"
           >
-            <Avatar className="h-24 w-24 mb-4 bg-gray-600">
-              <AvatarFallback className="text-2xl font-semibold bg-gray-600 text-white">
+            <Avatar className="h-24 w-24 mb-4 bg-muted">
+              <AvatarFallback className="text-2xl font-semibold bg-muted text-muted-foreground">
                 <User size={36} />
               </AvatarFallback>
             </Avatar>
-            <h3 className="text-xl font-medium text-white">{user.name}</h3>
+            <h3 className="text-xl font-medium text-foreground">{user.name}</h3>
           </div>
         ))}
       </div>

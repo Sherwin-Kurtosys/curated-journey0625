@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,6 +13,7 @@ import RoleActivities from "./pages/RoleActivities";
 import ReportStatus from "./pages/ReportStatus";
 import ReportWorkflows from "./pages/ReportWorkflows";
 import ReportTemplates from "./pages/ReportTemplates";
+import DocumentProductionCenter from "./pages/DocumentProductionCenter";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +35,7 @@ const AppContent = () => {
           <Route path="/report-status" element={<ReportStatus />} />
           <Route path="/report-workflows" element={<ReportWorkflows />} />
           <Route path="/report-templates" element={<ReportTemplates />} />
+          <Route path="/document-production-center" element={<DocumentProductionCenter />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
