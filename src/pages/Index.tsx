@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FileText, FolderOpen, BarChart3, Users, MessageSquare, Grid3X3, Send } from "lucide-react";
 import { useUser } from "@/contexts/UserContext";
+import { PromptOverlay } from "@/components/PromptOverlay";
 
 const journeys = [
   {
@@ -39,6 +40,7 @@ const Index = () => {
   const { currentUser } = useUser();
   const [showPersonas, setShowPersonas] = useState(false);
   const [input, setInput] = useState('');
+  const [showPromptOverlay, setShowPromptOverlay] = useState(true);
 
   const handleJourneySelect = (journeyId: string) => {
     navigate(`/role/${journeyId}`);
@@ -50,7 +52,6 @@ const Index = () => {
 
     const lowerInput = input.toLowerCase();
     
-    // Simple keyword matching to determine navigation
     if (lowerInput.includes('data') || lowerInput.includes('manage')) {
       navigate('/role/data-manager');
     } else if (lowerInput.includes('generate') || lowerInput.includes('create report')) {
@@ -60,7 +61,6 @@ const Index = () => {
     } else if (lowerInput.includes('design') || lowerInput.includes('template') || lowerInput.includes('create')) {
       navigate('/role/report-creator');
     } else {
-      // Default to report creator for general requests
       navigate('/role/report-creator');
     }
     
@@ -78,11 +78,45 @@ const Index = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Welcome{currentUser ? `, ${currentUser.name}` : ''}!
-            </h1>
-            <p className="text-xl md:text-2xl text-white/80">
               What would you like to do today?
-            </p>
+            </h1>
+          </div>
+
+          <div className="max-w-4xl mx-auto mb-8">
+            <div className="mb-6 text-center">
+              <div className="flex flex-wrap gap-2 justify-center mb-6">
+                {[
+                  'Generate a monthly report',
+                  'Update data sources',
+                  'Check report accuracy',
+                  'Create new template'
+                ].map((example) => (
+                  <div
+                    key={example}
+                    onClick={() => setInput(example)}
+                    className="cursor-pointer text-xs h-8 bg-white/20 hover:bg-white/30 rounded-full px-4 py-2 text-white transition-colors"
+                  >
+                    {example}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="relative mb-8">
+              <Input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="I would like to..."
+                className="text-lg h-14 rounded-2xl border-2 border-white/30 bg-white/10 text-white placeholder:text-white/60 focus:border-white/50 px-6 w-full pr-14"
+              />
+              <Button
+                type="submit"
+                size="icon"
+                className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 bg-white/20 hover:bg-white/30 text-white border-0"
+              >
+                <Send className="h-4 w-4" />
+              </Button>
+            </form>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8 max-w-5xl mx-auto mb-8">
@@ -104,14 +138,30 @@ const Index = () => {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+    );
+  }
 
-          <div className="max-w-4xl mx-auto mb-8">
+  return (
+    <>
+      <div className="min-h-screen flex flex-col items-center justify-center p-6" style={{ backgroundColor: '#0032b1' }}>
+        <div className="max-w-2xl mx-auto text-center">
+          <div className="mb-12">
+            <div className="w-32 h-32 mx-auto mb-8 bg-white/20 rounded-full flex items-center justify-center shadow-2xl">
+              <MessageSquare className="h-16 w-16 text-white" />
+            </div>
+            <p className="text-xl md:text-2xl text-white/80">
+              What would you like to do today?
+            </p>
+          </div>
+
+          <div className="space-y-6">
             <div className="mb-6 text-center">
-              <p className="text-sm text-white/70 mb-3">Try saying:</p>
-              <div className="flex flex-wrap gap-2 justify-center">
+              <div className="flex flex-wrap gap-2 justify-center mb-6">
                 {[
                   'Generate a monthly report',
-                  'Update data sources',
+                  'Update data sources', 
                   'Check report accuracy',
                   'Create new template'
                 ].map((example) => (
@@ -126,90 +176,41 @@ const Index = () => {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="relative">
+            <form onSubmit={handleSubmit} className="w-full relative">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="I would like to..."
-                className="text-lg h-14 rounded-2xl border-2 border-white/30 bg-white/10 text-white placeholder:text-white/60 focus:border-white/50 px-6 w-full pr-14"
+                className="text-lg h-16 rounded-full border-2 border-white/30 bg-white/10 text-white placeholder:text-white/60 focus:border-white/50 px-8 w-full shadow-lg pr-16"
               />
               <Button
                 type="submit"
                 size="icon"
-                className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 bg-white/20 hover:bg-white/30 text-white border-0"
+                className="absolute right-2 top-1/2 -translate-y-1/2 h-12 w-12 bg-white/20 hover:bg-white/30 text-white border-0"
               >
-                <Send className="h-4 w-4" />
+                <Send className="h-5 w-5" />
               </Button>
             </form>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6" style={{ backgroundColor: '#0032b1' }}>
-      <div className="max-w-2xl mx-auto text-center">
-        <div className="mb-12">
-          <div className="w-32 h-32 mx-auto mb-8 bg-white/20 rounded-full flex items-center justify-center shadow-2xl">
-            <MessageSquare className="h-16 w-16 text-white" />
-          </div>
-          <p className="text-xl md:text-2xl text-white/80">
-            What would you like to do today?
-          </p>
-        </div>
-
-        <div className="space-y-6">
-          <div className="mb-6 text-center">
-            <p className="text-sm text-white/70 mb-3">Try saying:</p>
-            <div className="flex flex-wrap gap-2 justify-center">
-              {[
-                'Generate a monthly report',
-                'Update data sources', 
-                'Check report accuracy',
-                'Create new template'
-              ].map((example) => (
-                <div
-                  key={example}
-                  onClick={() => setInput(example)}
-                  className="cursor-pointer text-xs h-8 bg-white/20 hover:bg-white/30 rounded-full px-4 py-2 text-white transition-colors"
-                >
-                  {example}
-                </div>
-              ))}
+            <div className="flex flex-col items-center gap-4 mt-12">
+              <Button
+                onClick={() => setShowPersonas(true)}
+                variant="ghost"
+                size="icon"
+                className="w-12 h-12 rounded-full border-2 border-white/30 hover:bg-white/10 text-white"
+              >
+                <Grid3X3 className="h-5 w-5" />
+              </Button>
+              <p className="text-sm text-white/70">Show all Actions</p>
             </div>
           </div>
-
-          <form onSubmit={handleSubmit} className="w-full relative">
-            <Input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="I would like to..."
-              className="text-lg h-16 rounded-full border-2 border-white/30 bg-white/10 text-white placeholder:text-white/60 focus:border-white/50 px-8 w-full shadow-lg pr-16"
-            />
-            <Button
-              type="submit"
-              size="icon"
-              className="absolute right-2 top-1/2 -translate-y-1/2 h-12 w-12 bg-white/20 hover:bg-white/30 text-white border-0"
-            >
-              <Send className="h-5 w-5" />
-            </Button>
-          </form>
-
-          <div className="flex flex-col items-center gap-4 mt-12">
-            <Button
-              onClick={() => setShowPersonas(true)}
-              variant="ghost"
-              size="icon"
-              className="w-12 h-12 rounded-full border-2 border-white/30 hover:bg-white/10 text-white"
-            >
-              <Grid3X3 className="h-5 w-5" />
-            </Button>
-            <p className="text-sm text-white/70">Show all Actions</p>
-          </div>
         </div>
       </div>
-    </div>
+
+      {showPromptOverlay && (
+        <PromptOverlay onClose={() => setShowPromptOverlay(false)} />
+      )}
+    </>
   );
 };
 
