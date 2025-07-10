@@ -25,6 +25,8 @@ export const PromptOverlay: React.FC<PromptOverlayProps> = ({ onClose }) => {
     
     if (lowerInput.includes('kick off') || lowerInput.includes('document production center')) {
       navigate('/document-production-center');
+    } else if (lowerInput.includes('update') && lowerInput.includes('template')) {
+      navigate('/report-templates');
     } else if (lowerInput.includes('view report status')) {
       navigate('/report-status');
     } else if (lowerInput.includes('configure report workflows')) {
@@ -47,7 +49,8 @@ export const PromptOverlay: React.FC<PromptOverlayProps> = ({ onClose }) => {
   };
 
   const handleSmartSuggestionClick = () => {
-    setInput('Based on your recent activity, would you like to kick off the next round of reporting workflows?');
+    const config = getPersonaConfig();
+    setInput(config.smartPrompt);
   };
 
   const getPersonaConfig = () => {
@@ -72,7 +75,7 @@ export const PromptOverlay: React.FC<PromptOverlayProps> = ({ onClose }) => {
           'Create new report template',
           'View report template'
         ],
-        smartPrompt: 'Based on your recent activity, would you like to kick off the next round of reporting workflows?',
+        smartPrompt: 'Update your last modified template',
         icon: FileText
       };
     } else if (userRoles.includes('report-validator')) {
@@ -129,7 +132,7 @@ export const PromptOverlay: React.FC<PromptOverlayProps> = ({ onClose }) => {
               onClick={handleSmartSuggestionClick}
               className="mb-6 bg-primary text-primary-foreground hover:bg-primary/90"
             >
-              Yes, kick off workflows
+              Add to input
             </Button>
 
             <form onSubmit={handleSubmit} className="mb-6">
