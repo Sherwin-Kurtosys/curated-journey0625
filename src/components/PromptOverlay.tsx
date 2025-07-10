@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -27,6 +26,8 @@ export const PromptOverlay: React.FC<PromptOverlayProps> = ({ onClose }) => {
       navigate('/document-production-center');
     } else if (lowerInput.includes('update') && lowerInput.includes('template')) {
       navigate('/report-templates');
+    } else if (lowerInput.includes('authorize') || lowerInput.includes('review pending')) {
+      navigate('/report-status');
     } else if (lowerInput.includes('view report status')) {
       navigate('/report-status');
     } else if (lowerInput.includes('configure report workflows')) {
@@ -82,11 +83,11 @@ export const PromptOverlay: React.FC<PromptOverlayProps> = ({ onClose }) => {
       return {
         title: 'Compliance Officer',
         suggestions: [
-          'View report status',
           'Review pending reports',
-          'Authorize reports'
+          'Authorize reports',
+          'View report status'
         ],
-        smartPrompt: 'Based on your recent activity, would you like to kick off the next round of reporting workflows?',
+        smartPrompt: 'You have 3 reports pending authorization. Review now?',
         icon: CheckCircle
       };
     } else {
